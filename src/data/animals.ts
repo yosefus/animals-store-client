@@ -1,4 +1,4 @@
-interface Animal {
+export interface Animal {
   category: string
   img: string
   name: string

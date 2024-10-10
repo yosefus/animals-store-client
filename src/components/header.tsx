@@ -3,7 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { CircleUser, Menu, Search } from "lucide-react"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { ModeToggle } from "./theme-switcher"
 
 const links = [
@@ -15,11 +15,20 @@ const links = [
 ];
 
 export default function Header() {
+   const navigate = useNavigate()
+
+   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+      const query = formData.get('query')
+      if (!query) return;
+      navigate(`/products?query=${query}`)
+   }
 
 
    return (
       <header className="sticky z-10 top-0 flex h-16 items-center gap-4 border-b bg-background1 bg-opacity-501 backdrop-blur-xl px-4 md:px-6">
-         <Sheet>
+         <Sheet >
             <SheetTrigger asChild>
                <Button
                   variant="outline"
@@ -30,7 +39,7 @@ export default function Header() {
                   <span className="sr-only">Toggle navigation menu</span>
                </Button>
             </SheetTrigger>
-            <SheetContent side="left">
+            <SheetContent  side="right">
                <SheetTitle className="sr-only">Menu</SheetTitle>
                <nav className="grid gap-6 pt-5 text-lg font-medium">
                   {links.map((link) => (
@@ -64,12 +73,15 @@ export default function Header() {
          </nav>
 
          <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-            <form className=" mr-auto flex-1 sm:flex-initial">
+            <form onSubmit={handleSubmit} className=" mr-auto flex-1 sm:flex-initial">
                <div className="relative">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <button className="absolute left-2.5 top-2.5" type="submit">
+                     <Search className=" h-4 w-4 text-muted-foreground" />
+                  </button>
                   <Input
                      type="search"
-                     placeholder="Search products..."
+                     name="query"
+                     placeholder="חיפוש תיפלצים..."
                      className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
                   />
                </div>

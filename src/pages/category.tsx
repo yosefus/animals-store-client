@@ -1,9 +1,8 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import AnimalCard from "@/components/animal-card";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import animals from "@/data/animals"; // Assuming you've added this import
 import categories from "@/data/categories";
-import { StarFilledIcon } from "@radix-ui/react-icons";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Category() {
    const { slug } = useParams();
@@ -39,34 +38,7 @@ export default function Category() {
 
          <h2 className="text-2xl font-semibold mb-4">מועדפים </h2>
          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {favoriteAnimals.map((animal) => (
-               <Link className="group" to={`/products/${animal.id}`} key={animal.id}>
-                  <Card className="overflow-hidden" >
-                     <CardHeader className="p-0">
-                        <img
-                           src={animal.img}
-                           alt={animal.name}
-                           className="w-full h-72 md:h-48 object-cover transition-transform duration-300 group-hover:scale-110  rounded-t-lg"
-                        />
-                     </CardHeader>
-                     <CardContent className="p-4">
-                        <CardTitle className="text-xl mb-2">{animal.name}</CardTitle>
-                        <CardDescription className="mb-2 h-10">
-                           {animal.description.length > 100
-                              ? `${animal.description.substring(0, 100)}...`
-                              : animal.description}
-                        </CardDescription>
-                        <div className="flex justify-between items-center">
-                           <Badge variant="secondary">₪{animal.price}</Badge>
-                           <div className="flex items-center">
-                              <StarFilledIcon  className="w-5 h-5 text-yellow-400 ml-1" />
-                              <span>{animal.rating.toFixed(1)}</span>
-                           </div>
-                        </div>
-                     </CardContent>
-                  </Card>
-               </Link>
-            ))}
+            {favoriteAnimals.map((animal) => <AnimalCard key={animal.id} {...animal} />)}
          </div>
       </div>
    );

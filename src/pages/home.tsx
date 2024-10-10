@@ -1,5 +1,7 @@
 import { HeroParallax } from '@/components/heroParallax'
+import { Button } from '@/components/ui/button'
 import categories from '@/data/categories'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
 
@@ -10,11 +12,20 @@ export default function Home() {
       description: category.description
    }))
 
-   const productsWithId = products.concat(products).concat(products).concat(products).map((product, index) => ({...product, id: index}))
+   const productsWithId = products.concat(products).concat(products).concat(products).map((product, index) => ({ ...product, id: index }))
 
    return (
       <>
-         <HeroParallax products={productsWithId} title='תיפלצים' text='חנות משגעת למכירה חוקית של בעלי חיים דמיוניים' />
+         <HeroParallax products={productsWithId} title='תיפלצים' text='חנות משגעת למכירה חוקית של בעלי חיים דמיוניים' >
+            <div className='flex gap-2 wrap my-6 relative z-10'>
+               <Link to='/products' className='block'>
+                  <Button variant='default' size='lg' className='w-40'>צפייה בכל המוצרים</Button>
+               </Link>
+               <Link to='/categories' className='block'>
+                  <Button variant='outline' size='lg' className='w-40'>צפייה בכל הקטגוריות</Button>
+               </Link>
+            </div>
+         </HeroParallax>
       </>
    )
 }

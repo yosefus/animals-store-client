@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 interface Product { title: string; link: string; thumbnail: string; description: string; id?: string | number }
 
-export const HeroParallax = ({ products, title, text }: { products: Product[], title: string, text: string }) => {
+export const HeroParallax = ({ products, title, text, children }: { products: Product[], title: string, text: string, children?: React.ReactNode }) => {
    const firstRow = products.slice(0, 5);
    const secondRow = products.slice(5, 10);
    const thirdRow = products.slice(10, 15);
@@ -45,7 +45,7 @@ export const HeroParallax = ({ products, title, text }: { products: Product[], t
          ref={ref}
          className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
       >
-         <Header title={title} text={text} />
+         <Header title={title} text={text} children={children} />
          <motion.div
             style={{
                rotateX,
@@ -53,7 +53,6 @@ export const HeroParallax = ({ products, title, text }: { products: Product[], t
                translateY,
                opacity,
             }}
-            className=""
          >
             <motion.div className="flex flex-row-reverse mb-20 gap-4">
                {firstRow.map((product) => (
@@ -87,15 +86,16 @@ export const HeroParallax = ({ products, title, text }: { products: Product[], t
    );
 };
 
-export const Header = ({ title, text }: { title: string; text: string }) => {
+export const Header = ({ title, text, children }: { title: string; text: string, children: React.ReactNode }) => {
    return (
       <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-         <h1 className="text-2xl md:text-9xl font-bold dark:text-white">
+         <h1 className="text-7xl md:text-9xl font-bold dark:text-white">
             {title}
          </h1>
          <p className="max-w-2xl text-base md:text-2xl mt-8 dark:text-neutral-200">
             {text}
          </p>
+         {children}
       </div>
    );
 };
