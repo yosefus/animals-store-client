@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 export function ModeToggle() {
   const setTheme = useThemeStore(state => state.setTheme)
+  const theme = useThemeStore(state => state.theme)
 
   return (
     <DropdownMenu dir="rtl">
@@ -16,13 +17,13 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent  >
-        <DropdownMenuItem className="pl-4 cursor-pointer justify-start hover:bg-accent" onClick={() => setTheme("light")}>
+        <DropdownMenuItem className={`${theme === "light" ? "opacity-50 bg-accent" : ""} pl-4 cursor-pointer justify-start hover:bg-accent`} onClick={() => setTheme("light")}>
           אור כמו החיים שלי
         </DropdownMenuItem>
-        <DropdownMenuItem className="pl-4 cursor-pointer justify-start hover:bg-accent" onClick={() => setTheme("dark")}>
+        <DropdownMenuItem className={`${theme === 'dark' ? "opacity-50 bg-accent" : ""} pl-4 cursor-pointer justify-start hover:bg-accent`} onClick={() => setTheme("dark")}>
           חושך כמו החיים של חמינאי
         </DropdownMenuItem>
-        <DropdownMenuItem className="pl-4 cursor-pointer justify-start hover:bg-accent" onClick={() => setTheme("system")}>
+        <DropdownMenuItem className={`${theme === "system" ? "opacity-50 bg-accent" : ""} pl-4 cursor-pointer justify-start hover:bg-accent`} onClick={() => setTheme("system")}>
           זרום עם המערכת
         </DropdownMenuItem>
       </DropdownMenuContent>

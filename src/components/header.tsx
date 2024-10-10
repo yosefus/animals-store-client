@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { CircleUser, Menu, Search } from "lucide-react"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { ModeToggle } from "./theme-switcher"
 
 const links = [
@@ -18,7 +18,7 @@ export default function Header() {
 
 
    return (
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <header className="sticky z-10 top-0 flex h-16 items-center gap-4 border-b bg-background1 bg-opacity-501 backdrop-blur-xl px-4 md:px-6">
          <Sheet>
             <SheetTrigger asChild>
                <Button
@@ -31,6 +31,7 @@ export default function Header() {
                </Button>
             </SheetTrigger>
             <SheetContent side="left">
+               <SheetTitle className="sr-only">Menu</SheetTitle>
                <nav className="grid gap-6 pt-5 text-lg font-medium">
                   {links.map((link) => (
                      <NavLink
@@ -41,7 +42,7 @@ export default function Header() {
                         {link.name}
                      </NavLink>
                   ))}
-                  <ModeToggle/>
+                  <ModeToggle />
                </nav>
             </SheetContent>
          </Sheet>
@@ -49,6 +50,7 @@ export default function Header() {
 
 
          <nav className="hidden flex-col gap-6 text-lg w-full font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+            <Link to="/"> <img src="/logo.svg" className="h-8 w-8" alt="logo" /></Link>
             {links.map((link) => (
                <NavLink
                   key={link.name}
@@ -58,7 +60,7 @@ export default function Header() {
                   {link.name}
                </NavLink>
             ))}
-            <ModeToggle/>
+            <ModeToggle />
          </nav>
 
          <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">

@@ -1,17 +1,37 @@
 
-import { ModeToggle } from './components/theme-switcher'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './layout'
+import Categories from './pages/categories'
+import Category from './pages/category'
+import Home from './pages/home'
+import Product from './pages/product'
+import Products from './pages/products'
 
 function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        { index: true, element: <Home/> },
+        { path: "categories",  children: [
+          { index: true, element: <Categories/> },
+          { path: ":slug", element: <Category/> },
+        ]},
+        { path: "products" , children: [
+          { index: true, element: <Products/> },
+          { path: ":id", element: <Product/> },
+        ]},
+        { path: "about", element: <></> },
+        { path: "contact", element: <></> },
+      ]
+    },
+  ])
+
+
   return (
-    <Layout >
-      <>
-        <ModeToggle/>
-        <p >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid hic adipisci, rerum corporis et consequuntur praesentium officiis necessitatibus quod magnam. Magni harum dignissimos sequi id pariatur incidunt quasi voluptates facere?
-        </p>
-      </>
-    </Layout>
+    <RouterProvider router={router} />
   )
 }
 
