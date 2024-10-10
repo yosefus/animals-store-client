@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from 'framer-motion';
 
 const teamMembers = [
-   { name: 'יעל כהן', role: 'מייסדת ומנכ"לית', avatar: '/img/members/1.jpg' },
-   { name: 'דוד לוי', role: 'מנהל טיפול בבעלי חיים', avatar: '/img/members/2.jpg' },
-   { name: 'מיכל גולן', role: 'וטרינרית ראשית', avatar: '/img/members/3.jpg' },
-   { name: 'אלון ברק', role: 'מנהל שיווק', avatar: '/img/members/4.jpg' },
+   { name: 'אני', role: 'מייסדת ומנכ"לית', avatar: '/img/members/1.jpg' },
+   { name: 'עצמי', role: 'מנהל טיפול בבעלי חיים', avatar: '/img/members/2.jpg' },
+   { name: 'אנוכי', role: 'וטרינרית ראשית', avatar: '/img/members/3.jpg' },
+   { name: 'אנונימי', role: 'מנהל שיווק', avatar: '/img/members/4.jpg' },
 ];
 
 const containerVariants = {
@@ -31,8 +31,8 @@ const itemVariants = {
 export default function About() {
    return (
 
-      <div className="bg-gradient-to-b  min-h-screen">
-         <div className="container mx-auto p-8 relative z-5">
+      <div className="min-h-screen">
+         <div className="container p-2 md:p-8 ">
             <motion.div
                initial="hidden"
                animate="visible"
@@ -82,7 +82,7 @@ export default function About() {
                               </CardHeader>
                               <CardContent className="text-center pt-4">
                                  <CardTitle className="text-xl mb-2">{member.name}</CardTitle>
-                                 <p className="text-gray-600">{member.role}</p>
+                                 <p className="opacity-70">{member.role}</p>
                               </CardContent>
                            </Card>
                         </motion.div>

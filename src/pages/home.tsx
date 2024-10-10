@@ -12,7 +12,7 @@ export default function Home() {
       description: category.description
    }))
 
-   const productsWithId = products.concat(products).concat(products).concat(products).map((product, index) => ({ ...product, id: index }))
+   const productsWithId = products.concat(products).map((product, index) => ({ ...product, id: index }))
 
    return (
       <>

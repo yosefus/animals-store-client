@@ -4,7 +4,7 @@ export default function AnimalCardSkeleton() {
    return (
       <Card className="overflow-hidden animate-pulse">
          <CardHeader className="p-0">
-            <div className="w-full h-72 md:h-48 bg-gray-300 rounded-t-lg" />
+            <div className="w-full h-72 md:h-56 bg-gray-300 rounded-t-lg" />
          </CardHeader>
          <CardContent className="p-4">
             <div className="h-6 bg-gray-300 rounded w-3/4 mb-2" />

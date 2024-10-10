@@ -12,7 +12,7 @@ export default function AnimalCard(animal: Animal) {
                <img
                   src={animal.img}
                   alt={animal.name}
-                  className="w-full h-72 md:h-48 object-cover transition-transform duration-300 group-hover:scale-110  rounded-t-lg"
+                  className="w-full h-72 md:h-56 object-cover transition-transform duration-300 group-hover:scale-110  rounded-t-lg"
                />
             </CardHeader>
             <CardContent className="p-4">

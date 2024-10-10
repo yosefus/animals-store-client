@@ -22,7 +22,7 @@ export default function Category() {
                   <img
                      src={category.img}
                      alt={category.name}
-                     className="w-full h-full object-cover rounded-r-lg"
+                     className="w-full max-h-[70vh] h-full object-cover rounded-r-lg"
                   />
                   <div className="flex flex-col justify-center p-6">
                      <CardTitle className="text-3xl md:text-5xl font-bold mb-4">
