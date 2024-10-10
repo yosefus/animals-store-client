@@ -26,7 +26,7 @@ const applyTheme = (theme: Theme) : Theme => {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      theme: applyTheme('system'),
+      theme: 'system',
       setTheme: (newTheme) => {
         set({ theme: newTheme })
         applyTheme(newTheme)
@@ -37,3 +37,7 @@ export const useThemeStore = create<ThemeState>()(
     }
   )
 )
+
+if (typeof window !== 'undefined') {
+  applyTheme(useThemeStore.getState().theme)
+}
