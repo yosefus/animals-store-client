@@ -6,6 +6,7 @@ import Category from './pages/category'
 import Home from './pages/home'
 import Product from './pages/product'
 import Products from './pages/products'
+import About from './pages/about'
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
           { index: true, element: <Products/> },
           { path: ":id", element: <Product/> },
         ]},
-        { path: "about", element: <></> },
+        { path: "about", element: <About/> },
         { path: "contact", element: <></> },
       ]
     },
