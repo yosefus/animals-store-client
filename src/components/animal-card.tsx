@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function AnimalCard(animal: Animal) {
    return (
-      <Link className="group" to={`/products/${animal.id}`} key={animal.id}>
+      <Link className="group" to={`/products/${animal._id}`} key={animal._id}>
          <Card className="overflow-hidden" >
             <CardHeader className="p-0">
                <img

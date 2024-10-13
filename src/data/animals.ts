@@ -1,4 +1,5 @@
 export interface Animal {
+  _id: string
   category: string
   img: string
   name: string
@@ -10,7 +11,7 @@ export interface Animal {
   id: number
 }
 
-export const animals: Animal[] = [
+export const animals= [
   // Dogs
   {
     category: 'dog',
