@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 
 export default function Category() {
    const { slug } = useParams();
-   const { isLoading, error, data } = useQuery('repoData', () => fetchCategory(slug as string));
+   const { isLoading, error, data } = useQuery('categories', () => fetchCategory(slug as string));
    const category = data?.category;
    const animals = data?.animals || [];
 
-   if (error ) return <ErrorAlert error={error} />;
+   if (error) return <ErrorAlert error={error} />;
 
    return (
       <div className="container mx-auto px-4 py-8">

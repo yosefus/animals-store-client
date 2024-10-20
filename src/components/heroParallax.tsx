@@ -1,14 +1,14 @@
-import React from "react";
 import { motion, useScroll, useTransform, useSpring, MotionValue, } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Category } from "@/data/categories";
+import { useRef } from "react";
 
-interface Product { title: string; link: string; thumbnail: string; description: string; id?: string | number }
 
-export const HeroParallax = ({ products, title, text, children }: { products: Product[], title: string, text: string, children?: React.ReactNode }) => {
+export const HeroParallax = ({ products, title, text, children }: { products: Category[], title: string, text: string, children?: React.ReactNode }) => {
    const firstRow = products.slice(0, 5);
    const secondRow = products.slice(5, 10);
    const thirdRow = products.slice(10, 15);
-   const ref = React.useRef(null);
+   const ref = useRef(null);
    const { scrollYProgress } = useScroll({
       target: ref,
       offset: ["start start", "end start"],
@@ -54,30 +54,30 @@ export const HeroParallax = ({ products, title, text, children }: { products: Pr
                opacity,
             }}
          >
-            <motion.div className="flex flex-row-reverse mb-20 gap-4">
+            <motion.div className="flex flex-row-reverse -translate-y-96 md:translate-y-0 -translate-x-96  mb-20 gap-4 md:-translate-x-[120px]">
                {firstRow.map((product) => (
                   <ProductCard
                      product={product}
                      translate={translateX}
-                     key={product.id || product.title}
+                     key={product._id || product.slug}
                   />
                ))}
             </motion.div>
-            <motion.div className="flex gap-4 translate-x-[180%] md:translate-x-0 mb-20  ">
+            <motion.div className="flex gap-4 -translate-y-96 md:translate-y-0 translate-x-[22rem]  md:translate-x-[120px] mb-20  ">
                {secondRow.map((product) => (
                   <ProductCard
                      product={product}
                      translate={translateXReverse}
-                     key={product.id || product.title}
+                     key={product._id || product.slug}
                   />
                ))}
             </motion.div>
-            <motion.div className="flex flex-row-reverse gap-4">
+            <motion.div className="flex -translate-y-96 md:translate-y-0 -translate-x-[40rem]  flex-row-reverse gap-4 md:-translate-x-[120px]">
                {thirdRow.map((product) => (
                   <ProductCard
                      product={product}
                      translate={translateX}
-                     key={product.id || product.title}
+                     key={product._id || product.slug}
                   />
                ))}
             </motion.div>
@@ -100,7 +100,7 @@ export const Header = ({ title, text, children }: { title: string; text: string,
    );
 };
 
-export const ProductCard = ({ product, translate, }: { product: Product; translate: MotionValue<number>; }) => {
+export const ProductCard = ({ product, translate, }: { product: Category; translate: MotionValue<number>; }) => {
    return (
       <motion.div
          style={{
@@ -109,24 +109,24 @@ export const ProductCard = ({ product, translate, }: { product: Product; transla
          whileHover={{
             y: -20,
          }}
-         key={product.title}
+         key={product.slug}
          className="group/product h-96 w-[30rem] relative flex-shrink-0 "
       >
          <Link
-            to={product.link}
+            to={`/categories/${product.slug}`}
             className="block group-hover/product:shadow-2xl "
          >
             <img
-               src={product.thumbnail}
+               src={product.img}
                height="600"
                width="600"
                className="object-cover object-left-top absolute h-full w-full inset-0"
-               alt={product.title}
+               alt={product.name}
             />
          </Link>
          <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
          <h2 className="absolute md:text-2xl font-bold bottom-14 right-4 opacity-0 group-hover/product:opacity-100 text-white">
-            {product.title}
+            {product.name}
          </h2>
          <p className="absolute w-[80%] truncate md:text-xl bottom-4  right-4 opacity-0 group-hover/product:opacity-100 text-white">
             {product.description}

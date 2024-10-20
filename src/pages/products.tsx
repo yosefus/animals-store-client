@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,29 +8,27 @@ import { ErrorAlert } from '@/components/error-alert';
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { fetchAnimalsSearch } from '@/data/axios-fetching';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
   const sort = searchParams.get('sort') || 'name';
 
-  const { isLoading, error, data, refetch } = useQuery(
+
+  const { isLoading, error, data } = useQuery(
     ['animalsSearch', query, sort],
     () => fetchAnimalsSearch({ query, sort }),
     { keepPreviousData: true }
   );
 
-  useEffect(() => {
-    refetch();
-  }, [query, sort, refetch]);
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useDebouncedCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setSearchParams(prev => {
       prev.set('query', newQuery);
       return prev;
     });
-  };
+  }, 1000);
 
   const handleSort = (value: string) => {
     setSearchParams(prev => {
@@ -48,7 +46,7 @@ export default function Products() {
         <Input
           type="text"
           placeholder="חיפוש..."
-          value={query}
+          defaultValue={query}
           onChange={handleSearch}
           className="max-w-sm"
         />
@@ -75,19 +73,19 @@ export default function Products() {
           >
             {isLoading
               ? Array.from({ length: 10 }).map((_, index) => (
-                  <AnimalCardSkeleton key={index} />
-                ))
+                <AnimalCardSkeleton key={index} />
+              ))
               : animals.map((animal) => (
-                  <motion.div
-                    key={animal._id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <AnimalCard {...animal} />
-                  </motion.div>
-                ))}
+                <motion.div
+                  key={animal._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <AnimalCard {...animal} />
+                </motion.div>
+              ))}
           </motion.div>
         </AnimatePresence>
       )}

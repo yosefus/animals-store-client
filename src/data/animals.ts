@@ -8,7 +8,6 @@ export interface Animal {
   countInStock: number
   rating: number
   numReviews: number
-  id: number
 }
 
 export const animals= [

@@ -7,6 +7,10 @@ import Home from './pages/home'
 import Product from './pages/product'
 import Products from './pages/products'
 import About from './pages/about'
+import Contact from './pages/contact'
+import NotFound from './pages/not-found'
+import SignUpPage from './pages/sign-up'
+import SignInPage from './pages/sign-in'
 
 function App() {
 
@@ -25,14 +29,20 @@ function App() {
           { path: ":id", element: <Product/> },
         ]},
         { path: "about", element: <About/> },
-        { path: "contact", element: <></> },
+        { path: "sign-up/*", element:<SignUpPage/> },
+        { path: "sign-in/*", element:<SignInPage/> },
+        { path: "contact", element: <Contact/> },
       ]
     },
+    {
+      path: "*",
+      element: <NotFound/>
+    }
   ])
 
 
   return (
-    <RouterProvider router={router} />
+    <RouterProvider  router={router} />
   )
 }
 

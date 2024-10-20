@@ -1,11 +1,12 @@
 export interface Category {
+  _id: string
    slug: string
    name: string
    img: string
    description: string
 }
 
-const categories : Category[] = [
+const categories = [
    {
      slug: 'dog',
      name: "כלבים",

@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { CircleUser, Menu, Search } from "lucide-react"
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
+import { Menu, Search } from "lucide-react"
+import { useState } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { ModeToggle } from "./theme-switcher"
 
@@ -12,10 +13,12 @@ const links = [
    { name: "כל המוצרים", href: "/products" },
    { name: "אודות", href: "/about" },
    { name: "צור קשר", href: "/contact" },
+   { name: "404", href: "/404" },
 ];
 
 export default function Header() {
    const navigate = useNavigate()
+   const [openMenu , setOpenMenu] = useState(false)
 
    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault()
@@ -28,7 +31,10 @@ export default function Header() {
 
    return (
       <header className="sticky z-10 top-0 flex h-16 items-center gap-4 border-b bg-background1 bg-opacity-501 backdrop-blur-xl px-4 md:px-6">
-         <Sheet >
+         <Sheet
+            onOpenChange={setOpenMenu}
+            open={openMenu}
+         >
             <SheetTrigger asChild>
                <Button
                   variant="outline"
@@ -39,18 +45,28 @@ export default function Header() {
                   <span className="sr-only">Toggle navigation menu</span>
                </Button>
             </SheetTrigger>
-            <SheetContent  side="right">
+            <SheetContent side="right">
                <SheetTitle className="sr-only">Menu</SheetTitle>
-               <nav className="grid gap-6 pt-5 text-lg font-medium">
+               <nav className="grid gap-6  pt-5 text-lg font-medium whitespace-nowrap">
                   {links.map((link) => (
                      <NavLink
                         key={link.name}
                         to={link.href}
-                        className={({ isActive }) => ` ${isActive ? "text-foreground" : "text-muted-foreground"}  hover:text-foreground`}
-                     >
+                        onClick={() => setOpenMenu(false)}
+                        className={({ isActive }) => ` ${isActive ? "text-foreground" : "text-muted-foreground"} hover:text-foreground`}
+                        >
                         {link.name}
                      </NavLink>
                   ))}
+                  <SignedOut>
+                     <NavLink
+                        to={'sign-up'}
+                        onClick={() => setOpenMenu(false)}
+                        className={({ isActive }) => ` ${isActive ? "text-foreground" : "text-muted-foreground"} hover:text-foreground`}
+                     >
+                        התחברות
+                     </NavLink>
+                  </SignedOut>
                   <ModeToggle />
                </nav>
             </SheetContent>
@@ -58,7 +74,7 @@ export default function Header() {
 
 
 
-         <nav className="hidden flex-col gap-6 text-lg w-full font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+         <nav className="hidden whitespace-nowrap flex-col gap-6 text-lg w-full font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <Link to="/"> <img src="/logo.svg" className="h-8 w-8" alt="logo" /></Link>
             {links.map((link) => (
                <NavLink
@@ -69,6 +85,14 @@ export default function Header() {
                   {link.name}
                </NavLink>
             ))}
+            <SignedOut>
+               <NavLink
+                  to={'sign-up'}
+                  className={({ isActive }) => ` ${isActive ? "text-foreground" : "text-muted-foreground"}  flex items-center gap-2 text-lg font-semibold md:text-base`}
+               >
+                  התחברות
+               </NavLink>
+            </SignedOut>
             <ModeToggle />
          </nav>
 
@@ -86,23 +110,13 @@ export default function Header() {
                   />
                </div>
             </form>
-            <DropdownMenu>
-               <DropdownMenuTrigger asChild>
-                  <Button variant="secondary" size="icon" className="rounded-full">
-                     <CircleUser className="h-5 w-5" />
-                     <span className="sr-only">Toggle user menu</span>
-                  </Button>
-               </DropdownMenuTrigger>
-               <DropdownMenuContent className="text-right" align="start">
-                  <DropdownMenuLabel>החשבון שלי</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem >הגדרות</DropdownMenuItem>
-                  <DropdownMenuItem>תמיכה</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>התנתקות</DropdownMenuItem>
-               </DropdownMenuContent>
-            </DropdownMenu>
+            <SignedIn>
+               <UserButton />
+            </SignedIn>
          </div>
       </header>
    )
 }
+
+
+
