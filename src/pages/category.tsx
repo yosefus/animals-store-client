@@ -41,7 +41,7 @@ export default function Category() {
             {
                isLoading ?
                   Array.from({ length: 4 }).map((_, index) => (<AnimalCardSkeleton key={index} />)) :
-                  animals?.map?.((animal) => <AnimalCard key={animal.id} {...animal} />)
+                  animals?.map?.((animal) => <AnimalCard key={animal._id} {...animal} />)
             }
          </div>
       </div>
